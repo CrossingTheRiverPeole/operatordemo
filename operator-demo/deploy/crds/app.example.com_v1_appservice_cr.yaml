@@ -1,0 +1,22 @@
+apiVersion: app.example.com/v1
+kind: AppService
+metadata:
+  name: example-appservice
+spec:
+  # Add fields here
+  size: 3
+  image: nginx:1.7.9
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30002
+  envs:
+    - name: MY_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+  commands: ["printenv"]
+  args: ["HOSTNAME", "KUBERNETES_PORT"]
+#  commands: ["/bin/sh", "-c", "./usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf && echo hello world >> /usr/share/nginx/html/index.html"]
+
+
